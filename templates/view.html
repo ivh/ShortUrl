@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+{% block content %}
+<h1>URL Details</h1>
+
+<ul>
+<li>Short URL: http://tmy.se/{{ object.key }}</li>
+<li>Redirects to: {{ object.url }}</li>
+</ul>
+
+
+{% endblock %}
