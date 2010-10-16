@@ -1,0 +1,37 @@
+{% extends "index.html" %}
+{% block content %}
+<h1>The no-nonsense, no-logging URL shortener</h1>
+
+
+<form action="." method="post">
+{{ url.non_field_errors }}
+{{ url.url.errors }}
+<p><label for="id_url">Shorten the long URL</label> {{ url.url }}</p>
+<p><label for="id_key">to <em>http://tmy.se/</em></label>{{ url.key }}</p>
+<input type="submit" value="Submit" />
+{% csrf_token %}
+</form>
+
+<p>Paste your long URL into the first field above, change the suffix of the short URL if you like, hit Submit. You will be led to a page that allows you to test the redirection from short to long. Plus it displays QR-codes for both.</p>
+
+
+<h2>About</h2>
+
+<p>Albeit bringing us closer
+to <a href="http://royal.pingdom.com/2010/09/22/is-the-web-heading-toward-redirect-hell/">redirect
+hell</a>, I found myself wanting a URL-shortener that is both
+non-bloated and non-sneaky - simply because I do not want myself or
+anybody else to track the visitors that follow a certain link. This
+site has no user accounts and does not log your activities. By using
+permanent redirects it even makes your browser remember a short link
+and it will not not need to come back a second time.</p>
+
+<p>The source code can be
+found <a href="http://github.com/ivh/ShortUrl">on GitHub</a>.
+</p>
+
+<h2>API usage</h2>
+
+... coming very soon.
+
+{% endblock %}
