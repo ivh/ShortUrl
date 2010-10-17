@@ -34,7 +34,12 @@ def new(request):
             url.save()
             return redirect(url.instance)
     else:
-        url=UrlForm(initial={'key':newKey()})
+        key=newKey()
+        try:
+            URL.objects.get(pk=key)
+            key+=newKey(2)
+        except: pass
+        url=UrlForm(initial={'key':key})
 
         
     c=RequestContext(request,{'url':url})

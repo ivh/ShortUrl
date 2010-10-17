@@ -6,6 +6,7 @@
 <form action="." method="post">
 {{ url.non_field_errors }}
 {{ url.url.errors }}
+{{ url.key.errors }}
 <p><label for="id_url">Shorten the long URL</label> {{ url.url }}</p>
 <p><label for="id_key">to <em>http://tmy.se/</em></label>{{ url.key }}</p>
 <input type="submit" value="Submit" />

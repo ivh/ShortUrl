@@ -21,7 +21,7 @@ class URL(m.Model):
         if not self.key: self.key=newKey()
 
     def clean(self):
-        if not self.key: self.fixKey()
+        self.fixKey()
         if not urlparse(self.url).scheme: self.url='http://'+self.url
         if not urlparse(self.url).netloc:
             raise ValidationError('Not a real URL')
