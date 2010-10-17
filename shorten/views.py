@@ -34,13 +34,12 @@ def new(request):
             url.save()
             return redirect(url.instance)
     else:
-        key=newKey()
+        key=newKey(3)
         try:
             URL.objects.get(pk=key)
-            key+=newKey(2)
+            key+=newKey(3)
         except: pass
         url=UrlForm(initial={'key':key})
-
         
     c=RequestContext(request,{'url':url})
     return render_to_response('shorten.html', c)
