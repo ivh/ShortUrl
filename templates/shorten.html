@@ -38,8 +38,8 @@ found <a href="http://github.com/ivh/ShortUrl">on GitHub</a>.
 
 <p>As you might have noticed when you shortened a URL above, say to <em>http://tmy.se/greatfun</em>, then the "info page" is reached by appending <em>/view/</em>, i.e. <a href="http://tmy.se/greatfun/view/">http://tmy.se/greatfun/view/</a>. The two images with the QR-codes that are embedded there are served dynamically from the URLs <a href="http://tmy.se/greatfun/qrl">http://tmy.se/greatfun/qrl</a> (long url) and <a href="http://tmy.se/greatfun/qrs">http://tmy.se/greatfun/qrs</a> (short url).</p>
 
-<p>For automated access, please direct your requests to <em>http://tmy.se/api</em>. There are two fields of data (GET or POST equally possible) that you can fill: <em>url</em> and <em>key</em>. So, in order to simply shorten a URL with a random key, do</p>
-<blockquote><pre>http://tmy.se/api?url=http://your.nice/url</pre></blockquote>
+<p>For automated access, please direct your requests to <em>http://tmy.se/api/</em>. There are two fields of data (GET or POST equally possible) that you can fill: <em>url</em> and <em>key</em>. So, in order to simply shorten a URL with a random key, do</p>
+<blockquote><pre>http://tmy.se/api/?url=http://your.nice/url</pre></blockquote>
 
 <p>The service will reply with HTTP status code 201 (created) and a payload of a short JSON document that looks as follows</p>
 <blockquote><pre>{"surl": "http://tmy.se/IUf", "lurl": "http://your.nice/url", "qrl": "http://tmy.se/IUf/qrl/", "qrs": "http://tmy.se/IUf/qrs/", "view": "http://tmy.se/IUf/view/"}</pre></blockquote>
@@ -48,6 +48,6 @@ found <a href="http://github.com/ivh/ShortUrl">on GitHub</a>.
 
 <p>If you in addition to <em>url</em> also give a <em>key</em> value, it will try to make a new redirection with the short url you wished for, but there are no guarantees, of course. If the key is already taken or invalid (only letters and numbers, please!), you will get a HTTP status code 409 (conflict) to gether with a short error message, embedded in JSON.</p>
 
-For knowing in advance where a short url will lead you, once you follow its redirection, just give the <em>key</em> value, no <em>url</em>, for example <em>http://tmy.se/api?key=greatfun</em>. This will be interpreted as a look-up and serve the same JSON-dictionary as above, at the time of creation. In there you find the long URL.
+For knowing in advance where a short url will lead you, once you follow its redirection, just give the <em>key</em> value, no <em>url</em>, for example <em>http://tmy.se/api/?key=greatfun</em>. This will be interpreted as a look-up and serve the same JSON-dictionary as above, at the time of creation. In there you find the long URL. HTTP status code 404 (not found) will tell you that the given key was not found.
 
 {% endblock %}

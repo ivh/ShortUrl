@@ -48,28 +48,35 @@ def new(request):
     c=RequestContext(request,{'url':url})
     return render_to_response('shorten.html', c)
 
+def getRetDict(key,lurl=None):
+    if not lurl: lurl=URL.objects.get(pk=key).url
+    retdict={'lurl':lurl,'surl':'http://tmy.se/'+key}
+    retdict['view']=retdict['surl']+'/view/'
+    retdict['qrl']=retdict['surl']+'/qrl/'
+    retdict['qrs']=retdict['surl']+'/qrs/'
+    return retdict
+
 def api(request):
-    if not request.REQUEST.has_key('key'):
+    if request.REQUEST.has_key('key') and request.REQUEST.has_key('url') :
+        url=UrlForm(request.REQUEST)
+    elif request.REQUEST.has_key('key'):
+        urlinst=get_object_or_404(URL,key=request.REQUEST['key'])
+        url=UrlForm(instance=urlinst)
+    elif request.REQUEST.has_key('url'):
         url=UrlForm(MergeDict(request.REQUEST,{'key':safeNewKey()}))
-    else: url=UrlForm(request.REQUEST)
+
+    else: url=UrlForm()
 
     if url.is_valid():
         url.save()
-        retdict=url.cleaned_data.copy()
-        retdict['lurl']=retdict['url']
-        del retdict['url']
-        retdict['surl']='http://tmy.se/'+retdict['key']
-        del retdict['key'] 
-        retdict['view']=retdict['surl']+'/view/'
-        retdict['qrl']=retdict['surl']+'/qrl/'
-        retdict['qrs']=retdict['surl']+'/qrs/'
-
+        retdict=getRetDict(url.cleaned_data['key'],url.cleaned_data['url'],)
+        
         response = HttpResponse(mimetype="application/json",status=201)
         json(retdict,response)
 
     else:
         response = HttpResponse(mimetype="application/json",status=409)
-        json({'error':'Something went wrong, most probably, the short key you wanted was already taken'},response)
+        json({'error':'Something went wrong, most probably, the short key you wanted was already taken or invalid.'},response)
 
     return response
     
