@@ -46,9 +46,9 @@ found <a href="http://github.com/ivh/ShortUrl">on GitHub</a>.
 
 <p>(You should be able to figure out what each of these mean, if you read the above.)</p>
 
-<p>If you in addition to <em>url</em> also give a <em>key</em> value, it will try to make a new redirection with the short url you wished for, but there are no guarantees, of course. If the key is already taken or invalid (only letters and numbers, please!), you will get a HTTP status code 409 (conflict) to gether with a short error message, embedded in JSON.</p>
+<p>If you in addition to <em>url</em> also give a <em>key</em> value, it will try to make a new redirection with the short url you wished for, but there are no guarantees, of course. If the key is already taken or invalid (only letters and numbers, please!), you will get a HTTP status code 409 (conflict) together with a short error message, embedded in JSON.</p>
 
-<p>For knowing in advance where a short url will lead you, once you follow its redirection, just give the <em>key</em> value, no <em>url</em>, for example <em>http://tmy.se/api/?key=greatfun</em>. This will be interpreted as a look-up and serve the same JSON-dictionary as above, at the time of creation. In there you find the long URL. HTTP status code 404 (not found) will tell you that the given key was not found.</p>
+<p>For knowing in advance where a short url will lead you, once you follow its redirection, access the API with just a <em>key</em> value, no <em>url</em>, for example <em>http://tmy.se/api/?key=greatfun</em>. This will be interpreted as a look-up and serve the same JSON-dictionary as above, at the time of creation. In there you find the long URL. HTTP status code 404 (not found) on the other hand will tell you that the given key was not found.</p>
 
 <p>Last but not least, keep in mind that this is a typical Saturday afternoon project of a single person and probably still contains several bugs. If you find one or have a question, feel free to write to thomas@marquart.se. Nevertheless, you can with reasonable confidence rely on that the short URLs you create here will work for the forseeable future.</p>
 
