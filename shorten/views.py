@@ -71,7 +71,7 @@ def api(request):
 
     if url.is_valid():
         url.save()
-        retdict=getRetDict(url.cleaned_data['key'],url.cleaned_data['url'],)
+        retdict=getRetDict(url.instance.key,url.instance.url)
         
         response = HttpResponse(mimetype="application/json",status=success)
         json(retdict,response)
