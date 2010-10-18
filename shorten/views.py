@@ -61,7 +61,7 @@ def api(request):
         url=UrlForm(request.REQUEST)
     elif request.REQUEST.has_key('key'):
         urlinst=get_object_or_404(URL,key=request.REQUEST['key'])
-        url=UrlForm(instance=urlinst)
+        url=UrlForm({'key':urlinst.key,'url':urlinst.url},instance=urlinst)
     elif request.REQUEST.has_key('url'):
         url=UrlForm(MergeDict(request.REQUEST,{'key':safeNewKey()}))
 
