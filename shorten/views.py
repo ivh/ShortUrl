@@ -59,19 +59,21 @@ def getRetDict(key,lurl=None):
 def api(request):
     if request.REQUEST.has_key('key') and request.REQUEST.has_key('url') :
         url=UrlForm(request.REQUEST)
-    elif request.REQUEST.has_key('key'):
-        urlinst=get_object_or_404(URL,key=request.REQUEST['key'])
-        url=UrlForm({'key':urlinst.key,'url':urlinst.url},instance=urlinst)
+        success=201
     elif request.REQUEST.has_key('url'):
         url=UrlForm(MergeDict(request.REQUEST,{'key':safeNewKey()}))
-
+        success=201
+    elif request.REQUEST.has_key('key'): # pure lookup, no new redirection
+        urlinst=get_object_or_404(URL,key=request.REQUEST['key'])
+        url=UrlForm({'key':urlinst.key,'url':urlinst.url},instance=urlinst)
+        success=200
     else: url=UrlForm()
 
     if url.is_valid():
         url.save()
         retdict=getRetDict(url.cleaned_data['key'],url.cleaned_data['url'],)
         
-        response = HttpResponse(mimetype="application/json",status=201)
+        response = HttpResponse(mimetype="application/json",status=success)
         json(retdict,response)
 
     else:
