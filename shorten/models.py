@@ -9,6 +9,8 @@ def newKey(length=4, chars=s.letters + s.digits):
 
 from urlparse import urlparse
 
+FORBIDDENKEYS=['api','tmp','piwik','pipermail','listarkiv','mailman','admin']
+
 class URL(m.Model):
     key=m.CharField(max_length=16,primary_key=True,unique=True,db_index=True,blank=False)
     url=m.CharField(max_length=1024,null=False,blank=False)
@@ -26,6 +28,8 @@ class URL(m.Model):
         if urlparse(self.url).netloc == 'tmy.se':
             raise ValidationError('No redirects to tmy.se are allowed.')
 
+        if self.key in FORBIDDENKEYS:
+            raise ValidationError('This is a reserved key.')
         if not re.match(r'[\w]+$', self.key):
             raise ValidationError('Only letters and numbers for the short key, please.')
         if len(self.key) < 3:
