@@ -70,7 +70,7 @@ def api(request):
     else: url=UrlForm()
 
     if url.is_valid():
-        url.save()
+        #url.save()
         retdict=getRetDict(url.instance.key,url.instance.url)
         
         response = HttpResponse(mimetype="application/json",status=success)
