@@ -4,7 +4,7 @@ sys.path.append(BASE_PATH)
 
 # Django settings for ShortUrl project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
